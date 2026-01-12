@@ -1,14 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-ZECDYR0184"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-ZECDYR0184');
-</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -16,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@300;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* Light Mode Variables */
             --bg: #eef2f6;
             --card-bg: #ffffff;
             --text: #1f2937;
@@ -30,6 +22,7 @@
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
+        /* Dark Mode Variables (Default Active) */
         body.dark-mode {
             --bg: #0f172a;
             --card-bg: #1e293b;
@@ -40,6 +33,7 @@
             --border: #374151;
             --option-bg: #334155;
             --option-hover: #475569;
+            --shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
         }
 
         * { box-sizing: border-box; transition: background 0.3s, color 0.3s; -webkit-tap-highlight-color: transparent; }
@@ -53,7 +47,7 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center; /* سنتر في النص */
+            align-items: center;
         }
 
         .container {
@@ -70,23 +64,22 @@
             display: flex;
             flex-direction: column;
             border-top: 6px solid var(--primary);
-            /* زيادة الطول */
             min-height: 80vh; 
         }
 
-        /* --- منطقة اللوجوهات (الصور) --- */
+        /* --- Logos Area --- */
         .logos-area {
             background: var(--card-bg);
             padding: 20px;
             display: flex;
-            justify-content: center; /* في المنتصف */
+            justify-content: center;
             align-items: center;
-            gap: 40px; /* مسافة بين الصورتين */
+            gap: 40px;
             border-bottom: 1px dashed var(--border);
         }
 
         .quiz-logo {
-            height: 90px; /* كبرت الصور */
+            height: 90px;
             width: auto;
             object-fit: contain;
             transition: transform 0.3s;
@@ -187,9 +180,8 @@
             font-weight: bold;
         }
 
-        /* Quiz Body - زيادة الطول هنا */
+        /* Quiz Body */
         .content-area {
-            /* ده هيضمن ان المكان واسع */
             min-height: 450px; 
             display: flex;
             flex-direction: column;
@@ -259,8 +251,8 @@
         .next-btn:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
 
         #timer-display {
-            background: #fee2e2;
-            color: #b91c1c;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.9rem;
@@ -286,19 +278,18 @@
         @media (max-width: 600px) {
             .logos-area { gap: 20px; padding: 15px; }
             .quiz-logo { height: 70px; }
-            .content-area { min-height: 400px; } /* طول مناسب للموبايل */
+            .content-area { min-height: 400px; }
             .question-text { font-size: 1.15rem; }
         }
     </style>
 </head>
-<body>
+<body class="dark-mode">
 
 <div class="container">
     <div class="quiz-card">
         
         <div class="logos-area">
             <img src="https://i.postimg.cc/GhxhMmtv/FB-IMG-1768000370431.jpg" class="quiz-logo" alt="Faculty Logo">
-            
             <img src="https://i.postimg.cc/BbWQz82h/images.png" class="quiz-logo" alt="University Logo">
         </div>
 
@@ -310,7 +301,7 @@
 
             <div class="header-controls">
                 <button class="icon-btn" onclick="goHome()" title="Home">🏠</button>
-                <button class="icon-btn" onclick="toggleTheme()">🌙</button>
+                <button class="icon-btn" onclick="toggleTheme()">☀️</button>
             </div>
         </div>
 
@@ -558,7 +549,9 @@
 
         const q = shuffledData[currentQIndex];
         document.getElementById('current-q').innerText = currentQIndex + 1;
-        document.getElementById('progress').style.width = `${((currentQIndex)/shuffledData.length)*100}%`;
+        
+        const pct = ((currentQIndex)/shuffledData.length)*100;
+        document.getElementById('progress').style.width = `${pct}%`;
         
         document.getElementById('question').innerText = q.q;
         const optsDiv = document.getElementById('options');
